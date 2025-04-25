@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # my-ai-app
 
 An Electron application with React and TypeScript
@@ -32,3 +33,7 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
+=======
+# desktop-ai-integration
+Electron desktop application connected to OpenAI provider allowing (restricted) recursive directory search, read, edit, write ability.
+>>>>>>> ed2030fef84b406b38df6e2afb57ad232fd596e8
