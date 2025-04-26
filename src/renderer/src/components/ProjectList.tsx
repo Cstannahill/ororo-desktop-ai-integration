@@ -18,10 +18,10 @@ export function ProjectList({
       {/* Takes available space */}
       {/* General Chat Option */}
       <div
-        className={`cursor-pointer rounded px-2.5 py-1.5 text-sm transition-colors duration-150 ease-in-out ${
+        className={`cursor-pointer bg-brand-accent text-brand-chataibubble font-semibold rounded text-center px-2.5 py-1.5 text-sm  duration-150 ease-in-out ${
           activeProjectId === null
-            ? 'bg-cyan-700 text-white' // Active style
-            : 'text-gray-300 hover:bg-gray-700 hover:text-white' // Inactive style
+            ? 'bg-brand-chatusertext text-brand-altsurface font-semibold' // Active style
+            : 'text-brand-chataibubble hover:bg-gray-700 hover:text-white' // Inactive style
         }`}
         onClick={() => onSelectProject(null)}
         title="Chat without specific project context"
@@ -34,9 +34,9 @@ export function ProjectList({
       {projects.map((project) => (
         <div
           key={project.id}
-          className={`cursor-pointer rounded px-2.5 py-1.5 text-sm transition-colors duration-150 ease-in-out ${
+          className={`cursor-pointer rounded px-2.5 py-1.5 font-semibold text-center text-sm transition-colors duration-150 ease-in-out ${
             activeProjectId === project.id
-              ? 'bg-cyan-700 text-white' // Active style
+              ? 'bg-brand-chatusertext text-brand-surface ' // Active style
               : 'text-gray-300 hover:bg-gray-700 hover:text-white' // Inactive style
           } overflow-hidden text-ellipsis whitespace-nowrap`}
           onClick={() => onSelectProject(project.id)}

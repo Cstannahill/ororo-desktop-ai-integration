@@ -6,7 +6,7 @@ import { AI_Prompt } from '../main/lib/ai-base-prompt'
 import { availableTools } from './tools'
 // Import Types
 import { type AppStore, type ChatMessage, type DirectoryTree, type Project } from './types'
-
+import ElectronStoreModule, { type Store as ElectronStoreType } from 'electron-store'
 // Import Helpers/Logic
 import { loadAppContext } from './context/context-loader'
 import { getRAGContext } from './context/rag-processor'
@@ -17,6 +17,7 @@ import { triggerReindex } from './lib/reindexer' // Import reindexer
 import { loadIndexedProjects, saveInsight, findRelevantInsights, getDb } from './lib/database' // Keep DB access needed for exported handlers
 import { getDirectoryTreeObject } from './lib/file-system' // Keep for handleIndexProject
 import { basename, dirname, join, normalize, resolve } from 'path' // Keep for handleIndexProject
+import fs from 'fs/promises' // Keep for handleIndexProject
 
 // --- Main Orchestrator Function ---
 export async function processUserMessage(
@@ -27,10 +28,11 @@ export async function processUserMessage(
   activeProjectId: number | null
 ): Promise<void> {
   // 1. Basic Checks
+  console.log(`processUserMessage entry: openaiClient is ${openaiClient ? 'INITIALIZED' : 'NULL'}`)
   if (!openaiClient || !receivedMessages || receivedMessages.length === 0) {
     mainWindow?.webContents.send(
       'ipc-receive-message',
-      'ERROR: Client not ready or no message received.'
+      'ERROR: OpenAI API Key not set. Please set it in the application settings.'
     )
     return
   }
