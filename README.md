@@ -128,5 +128,4 @@ my-ai-app/
 * **Planning Projects:** Implement support for the "Planning" project type, including storing/retrieving planning artifacts.
 * **Ollama / Local LLM Support:** Add provider selection and logic to interact with local models via Ollama.
 * **Screen Reading/Interaction:** Future goal, not yet implemented.
-
 ---
