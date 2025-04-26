@@ -27,6 +27,7 @@ let openai: OpenAI | null = null
 // --- Helper Functions ---
 // Modifies the global 'openai' variable based on stored key
 function initializeOpenAI(): void {
+  console.log('Main: initializeOpenAI called.')
   const apiKey = store.get('openaiApiKey')
   if (apiKey) {
     console.log('Main: OpenAI API Key found, initializing client.')
@@ -46,8 +47,8 @@ function createWindow(): void {
 
   // Create the browser window instance
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1200,
+    height: 800,
     show: false, // Don't show until ready to avoid visual flash
 
     icon: path.join(__dirname, 'assets/icons/png/512x512.png'),

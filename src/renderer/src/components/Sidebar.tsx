@@ -16,7 +16,7 @@ export function Sidebar({
   onIndexProject
 }: SidebarProps): React.ReactElement {
   return (
-    <div className="flex h-full w-52 flex-shrink-0 flex-col border-r border-gray-700 bg-gray-800 p-3">
+    <div className="flex h-full w-52 flex-shrink-0 flex-col sidebar-container border-r border-gray-700 bg-brand-chataibubble p-3">
       <h3 className="mb-3 text-center text-lg font-semibold text-white">Projects</h3>
       <ProjectList
         projects={projects}
@@ -27,7 +27,7 @@ export function Sidebar({
       <div className="mt-auto border-t border-gray-600 pt-3">
         <button
           onClick={onIndexProject}
-          className="w-full rounded bg-gray-600 px-3 py-2 text-sm font-medium text-white transition-colors duration-200 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+          className="w-full rounded font-semibold bg-brand-sage px-3 py-2 text-sm  text-white transition-colors duration-200 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800"
         >
           Index Project Folder
         </button>

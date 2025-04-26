@@ -18,6 +18,7 @@ import { ApiKeyForm } from './components/ApiKeyForm'
 import { Sidebar } from './components/Sidebar'
 import { MessageList } from './components/MessageList'
 import { ChatInput } from './components/ChatInput'
+import '../src/assets/main.css'
 
 // Keep trimMessages helper function...
 const MAX_HISTORY_MESSAGES = 20
@@ -82,13 +83,18 @@ function App(): React.ReactElement {
     console.log('Renderer: Setting up message listener...')
     let isMounted = true
     const unsubscribe = window.electronAPI?.onReceiveMessage((messageContent) => {
-      if (!isMounted) return
       console.log('Renderer: Received message:', messageContent)
+      if (!isMounted) return
+      console.log('Renderer Listener: Received content:', JSON.stringify(messageContent))
       setIsLoading(false)
       let roleType: ChatMessage['role'] = 'assistant'
 
       if (messageContent.startsWith('ERROR: OpenAI API Key not set')) {
+        console.log('Renderer Listener: Detected API Key needed!') // <-- ADD LOG
         setIsApiKeyNeeded(true)
+        console.log('Renderer Listener: Called setIsApiKeyNeeded(true)')
+        roleType = 'system'
+        setApiKeyError('')
         // Don't add this specific error to chat, handled by showing form
         return
       } else if (messageContent.startsWith('ERROR:')) {
@@ -233,7 +239,7 @@ function App(): React.ReactElement {
   ) // Depends on projects list to find name
 
   // --- Render Logic ---
-
+  console.log(`Renderer Rendering: isApiKeyNeeded = ${isApiKeyNeeded}`)
   // Show API Key form if needed
   if (isApiKeyNeeded) {
     return (
@@ -250,7 +256,7 @@ function App(): React.ReactElement {
 
   // Main application layout
   return (
-    <div className="flex h-screen bg-gray-900 text-gray-100">
+    <div className="flex h-[95vh] w-screen mt-4 bg-brand-chataibubble text-gray-100">
       <Sidebar
         projects={projects}
         activeProjectId={activeProjectId}
