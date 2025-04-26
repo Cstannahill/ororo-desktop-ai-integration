@@ -53,7 +53,7 @@ The assistant leverages local storage for project structures and user preference
 - **Styling:** Basic Tailwind CSS setup + Inline Styles (planned for full Tailwind implementation).
 
 ## Project Structure Overview
-
+```
 my-ai-app/
 ├── out/ # Build output directory
 ├── resources/ # Static resources (e.g., icons)
@@ -82,7 +82,7 @@ my-ai-app/
 ├── tsconfig.json # Root TypeScript config
 ├── tsconfig.node.json # TypeScript config for main/preload
 └── tsconfig.web.json # TypeScript config for renderer
-
+```
 1.  **Prerequisites:** Node.js (>=18 recommended), npm / yarn / pnpm.
 2.  **Clone:** Clone the repository (if applicable).
 3.  **Install:** Navigate to the project directory and run `npm install` (or `yarn install` / `pnpm install`).
