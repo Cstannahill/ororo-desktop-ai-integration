@@ -2,6 +2,7 @@
 
 **Current Status:** In Development (as of April 25, 2025)
 
+
 ## Description
 
 This project is an Electron-based desktop application designed to function as an AI-powered pair programmer and coding assistant. The core goal is to overcome the context limitations of standard Large Language Models (LLMs) by providing the AI with persistent memory and direct access to local project files and structures. It aims to assist users with planning, designing, coding, debugging, and documenting software projects through an interactive chat interface.
@@ -97,33 +98,3 @@ my-ai-app/
     - Builds and bundles the main, preload, and renderer code into the `out/` directory.
     - Copies necessary assets (like database migrations).
 
-## Basic User Guide
-
-1.  **Start:** Launch the application (run `npm run dev` or use the packaged executable later).
-2.  **API Key:** If prompted, enter your OpenAI API key and save it.
-3.  **Index Project:** Click the "Index Project Folder" button in the sidebar. Select the root directory of a code project you want the AI to know about. Wait for the indexing confirmation.
-4.  **Select Project:** Click on a project name in the sidebar to make it the "active" context for your conversation. "General Chat" can be used for non-project-specific queries.
-5.  **Chat:** Type messages in the input bar at the bottom.
-6.  **Interact:**
-    - Ask questions about your code or programming concepts.
-    - Ask the AI to list files/folders within the active project (e.g., "list files in the `components` folder", "show me the structure of `lib`").
-    - Ask the AI to read specific files (e.g., "read the `README.md`", "show me the code for `App.tsx`").
-    - Ask the AI to create files or directories (e.g., "create a folder named `tests`", "create a `utils.ts` file in `lib` with a function to add two numbers").
-    - Ask the AI to edit files (e.g., "open `utils.ts`, add a function to subtract numbers, and save it").
-    - Ask the AI to remember key facts or preferences using "save memory" (e.g., "save this to memory: I prefer using Zustand for state management").
-    - Ask the AI to save project-specific notes using "append to context file" (e.g., "append this to AIContext.md: Decided to use Prisma for the database").
-
-## Current Limitations & Future Work
-
-- **UI:** Basic layout and styling. Needs full Tailwind implementation, improved display of status/errors, copy buttons, potentially better visualization of context/tools.
-- **RAG - Structure:** Currently injects context based on simple path matching in the user query. Could be improved with deeper tree searching or vector embeddings of the structure itself for more semantic understanding.
-- **RAG - Memory:** Uses basic cosine similarity calculated in JS over all stored memories. Will become inefficient with many memories; needs optimization using proper vector indexing (e.g., SQLite extensions like `sqlite-vss`/`sqlite-vec`, or libraries like LanceDB/Vectra integrated with SQLite persistence).
-- **File Editing:** The `edit_file` tool currently overwrites the entire file. More granular editing (diffs, line replacements) could be implemented but adds significant complexity for both the AI and the tool.
-- **Re-indexing:** Currently manual (via button) or delayed background task after modifications. Needs a more robust background task queue or a manual "Refresh" button in the UI for guaranteed consistency after external file changes.
-- **Error Handling:** Can be made more robust and user-friendly.
-- **User Preferences:** Implement the formal system for storing/retrieving explicit user preferences (Planned Next).
-- **Planning Projects:** Implement support for the "Planning" project type, including storing/retrieving planning artifacts.
-- **Ollama / Local LLM Support:** Add provider selection and logic to interact with local models via Ollama.
-- **Screen Reading/Interaction:** Future goal, not yet implemented.
-
----
