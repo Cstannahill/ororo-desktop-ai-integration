@@ -12,6 +12,9 @@ export interface ElectronAPI {
   setApiKey: (apiKey: string) => Promise<boolean>
   indexProject: () => Promise<string> // Signature for indexing
   getProjects: () => Promise<Project[]> // Signature for getting projects
+  getPreference: (key: string) => Promise<string | null>
+  getAllPreferences: () => Promise<Record<string, string>>
+  setPreference: (key: string, value: string) => Promise<boolean>
 }
 
 // Define the channels consistently
@@ -20,6 +23,9 @@ const receiveChannel = 'ipc-receive-message'
 const setApiKeyChannel = 'set-api-key'
 const indexProjectChannel = 'index-project' // Channel for indexing handler
 const getProjectsChannel = 'get-projects' // Channel for getting projects
+const getPreferenceChannel = 'get-preference'
+const getAllPreferencesChannel = 'get-all-preferences'
+const setPreferenceChannel = 'set-preference'
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
@@ -48,6 +54,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getProjects: async (): Promise<Project[]> => {
     const projects: Project[] = await ipcRenderer.invoke(getProjectsChannel)
     return projects
+  },
+  // Preferences
+  getPreference: async (key: string): Promise<string | null> => {
+    return await ipcRenderer.invoke(getPreferenceChannel, key)
+  },
+  getAllPreferences: async (): Promise<Record<string, string>> => {
+    return await ipcRenderer.invoke(getAllPreferencesChannel)
+  },
+  setPreference: async (key: string, value: string): Promise<boolean> => {
+    return await ipcRenderer.invoke(setPreferenceChannel, key, value)
   }
 } as ElectronAPI)
 

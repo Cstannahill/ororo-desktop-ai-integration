@@ -52,7 +52,6 @@ export async function processUserMessage(
   // 4. Build message list for initial API call
   const messagesForApi = buildApiMessages(
     receivedMessages,
-
     projectContext,
     relevantStructureContext,
     memoryContext
