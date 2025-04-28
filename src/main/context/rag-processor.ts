@@ -2,14 +2,14 @@
 
 import OpenAI from 'openai'
 import { type Project, type DirectoryTree } from '../types'
-import { findRelevantInsights } from '../lib/database'
+import { findRelevantInsights, getAllPreferences } from '../lib/database'
 // Keep findNodeInTree helper local to this file or move to lib/file-system? Let's keep it here for now.
 
 // --- Helper Function to find a node in the stored tree by relative path ---
 function findNodeInTree(
   tree: DirectoryTree | null | undefined,
   relativePath: string
-): DirectoryTree | null {
+): DirectoryTree | null | undefined {
   if (!tree || typeof relativePath !== 'string') return null
   const parts = relativePath
     .normalize()
@@ -34,6 +34,7 @@ function findNodeInTree(
 export interface RagContextResult {
   relevantStructureContext: string
   memoryContext: string
+  preferenceContext: string
 }
 
 /**
@@ -48,6 +49,7 @@ export async function getRAGContext(
 ): Promise<RagContextResult> {
   let relevantStructureContext = ''
   let memoryContext = ''
+  let preferenceContext = '' // Placeholder for future use
 
   // --- RAG Step 1: Find Relevant Structure Context ---
   if (activeProject && projectTree && lastUserMessage) {
@@ -113,6 +115,25 @@ export async function getRAGContext(
       memoryContext = '\n\nError retrieving memories.'
     }
   }
+  // --- NEW RAG Step 3: Load User Preferences ---
+  try {
+    console.log('RAGProcessor: Loading user preferences...')
+    const preferences = await getAllPreferences() // Call DB function
+    const preferenceKeys = Object.keys(preferences)
+    if (preferenceKeys.length > 0) {
+      preferenceContext = '\n\nUser Preferences:'
+      for (const key of preferenceKeys) {
+        preferenceContext += `\n- ${key}: ${preferences[key]}`
+      }
+      console.log('RAGProcessor: Adding preference context:', preferenceContext)
+    } else {
+      console.log('RAGProcessor: No user preferences found in database.')
+    }
+  } catch (prefError) {
+    console.error('RAGProcessor: Error loading user preferences:', prefError)
+    preferenceContext = '\n\nError retrieving user preferences.'
+  }
+  // --- End RAG Step 3 ---
 
-  return { relevantStructureContext, memoryContext }
+  return { relevantStructureContext, memoryContext, preferenceContext } // Return all context pieces
 }

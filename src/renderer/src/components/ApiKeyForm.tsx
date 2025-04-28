@@ -1,11 +1,12 @@
 import React from 'react'
-
+import { Eye, EyeOff } from './Icons'
+import { useState } from 'react'
 interface ApiKeyFormProps {
   apiKeyInput: string
   isLoading: boolean
   apiKeyError: string
   handleApiInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  handleSaveApiKey: () => Promise<void>
+  handleSaveApiKey: () => Promise<boolean>
   handleApiKeyKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
@@ -17,6 +18,7 @@ export function ApiKeyForm({
   handleSaveApiKey,
   handleApiKeyKeyPress
 }: ApiKeyFormProps): React.ReactElement {
+  const [apiKeyVisible, setApiKeyVisible] = useState<boolean>(false)
   return (
     // Centering container - Takes full viewport height
     <div className="flex h-screen w-full items-center justify-center bg-gray-900 text-gray-100">
@@ -37,6 +39,14 @@ export function ApiKeyForm({
           className="mb-4 block w-full rounded border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
           disabled={isLoading}
         />
+        <button
+          onClick={() => setApiKeyVisible(!apiKeyVisible)}
+          className="p-2 text-gray-400 hover:text-white focus:outline-none"
+          title={apiKeyVisible ? 'Hide Key' : 'Show Key'}
+          type="button"
+        >
+          {apiKeyVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+        </button>
         <button
           onClick={handleSaveApiKey}
           className="w-full rounded bg-cyan-600 px-4 py-2 font-bold text-white transition-colors duration-200 ease-in-out hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
