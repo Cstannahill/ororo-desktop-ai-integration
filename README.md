@@ -2,7 +2,7 @@
 
 **Current Status:** In Development (as of April 25, 2025)
 
-[Example1](/public/chat.webp)
+[[Example1](/public/chat.webp)](https://github.com/Cstannahill/ororo-desktop-ai-integration/raw/main/public/chat.webp)
 
 ## Description
 
