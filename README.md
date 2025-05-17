@@ -10,6 +10,7 @@ This project is an Electron-based desktop application designed to function as an
 
 The assistant leverages local storage for project structures and user preferences/memories, combined with Retrieval-Augmented Generation (RAG) techniques and specific filesystem tools to provide contextually relevant and actionable help.
 
+
 ## Current Features
 
 - **Chat Interface:** Provides a user interface for interacting with an AI model via text messages.
@@ -100,7 +101,7 @@ my-ai-app/
 6.  **Build Production:** `npm run build`
     * Builds and bundles the main, preload, and renderer code into the `out/` directory.
     * Copies necessary assets (like database migrations).
-
+      
 ## Basic User Guide
 
 1.  **Start:** Launch the application (run `npm run dev` or use the packaged executable later).
